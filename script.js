@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       envelopeSection.classList.add("hidden");
       invitationCardSection.className = "card-section-active";
+      resizeSashCanvases(); // Resize sash canvases now that they are visible
       // Scroll to top of window
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 600); // sync with open-letter transition
@@ -198,14 +199,119 @@ document.addEventListener("DOMContentLoaded", () => {
     particles.push(new Particle());
   }
 
-  function animateParticles() {
+  // --- Graduation Sash Canvas Wave Animation ---
+  const sashLeftCanvas = document.getElementById("sash-left-canvas");
+  const sashRightCanvas = document.getElementById("sash-right-canvas");
+
+  const ctxLeft = sashLeftCanvas ? sashLeftCanvas.getContext("2d") : null;
+  const ctxRight = sashRightCanvas ? sashRightCanvas.getContext("2d") : null;
+
+  const imgLeft = new Image();
+  imgLeft.src = "image/sash-left.png";
+
+  const imgRight = new Image();
+  imgRight.src = "image/sash-right.png";
+
+  function resizeSashCanvases() {
+    [sashLeftCanvas, sashRightCanvas].forEach((canvas) => {
+      if (!canvas) return;
+      let rect = canvas.getBoundingClientRect();
+      let width = rect.width;
+      let height = rect.height;
+
+      // Fallback to CSS rules if container is hidden (dimensions are 0)
+      if (width === 0 || height === 0) {
+        const style = window.getComputedStyle(canvas);
+        width = parseFloat(style.width) || 110;
+        height = parseFloat(style.height) || 520;
+      }
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+    });
+  }
+
+  // Draw displacement waving sash with 3D lighting folds
+  function drawWavingSash(ctx, img, canvas, time) {
+    if (!ctx || !img.complete || img.naturalWidth === 0) return;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const slices = 120;
+    const imgWidth = img.width;
+    const imgHeight = img.height;
+    const sliceHeight = imgHeight / slices;
+    const displaySliceHeight = h / slices;
+
+    const frequency = 0.12; // wave frequency
+    const speed = time * 0.0035; // wave speed
+    const amplitude = w * 0.07; // horizontal wave offset (about 7% of width)
+
+    for (let i = 0; i < slices; i++) {
+      const sy = i * sliceHeight;
+      const dy = i * displaySliceHeight;
+
+      // Pinned at the top: factor goes from 0 at top to 1 at bottom
+      const factor = i / slices;
+
+      // Horizontal shift
+      const dx = Math.sin(i * frequency - speed) * amplitude * factor;
+
+      // Keep within bounds: leave margin for wave swing
+      const margin = amplitude * 1.6;
+      const destWidth = w - margin;
+      const destX = dx + margin / 2;
+
+      // Draw the textured slice
+      ctx.drawImage(
+        img,
+        0,
+        sy,
+        imgWidth,
+        sliceHeight,
+        destX,
+        dy,
+        destWidth,
+        displaySliceHeight,
+      );
+
+      // 3D Lighting/shadow fold illusion
+      const shadowIntensity = Math.cos(i * frequency - speed) * 0.15 * factor;
+      if (shadowIntensity > 0) {
+        // Valley fold shadow
+        ctx.fillStyle = `rgba(0, 0, 0, ${shadowIntensity})`;
+        ctx.fillRect(destX, dy, destWidth, displaySliceHeight);
+      } else {
+        // Peak fold highlight
+        ctx.fillStyle = `rgba(255, 255, 255, ${-shadowIntensity * 0.7})`;
+        ctx.fillRect(destX, dy, destWidth, displaySliceHeight);
+      }
+    }
+  }
+
+  function animateParticles(currentTime) {
+    if (!currentTime) currentTime = 0;
+
+    // 1. Particle Canvas update
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
     }
+
+    // 2. Sash Canvases update
+    if (ctxLeft) drawWavingSash(ctxLeft, imgLeft, sashLeftCanvas, currentTime);
+    if (ctxRight)
+      drawWavingSash(ctxRight, imgRight, sashRightCanvas, currentTime);
+
     requestAnimationFrame(animateParticles);
   }
+
+  // Set up canvases resize hooks
+  setTimeout(resizeSashCanvases, 100);
   animateParticles();
 
   // 4. Countdown Timer Logic

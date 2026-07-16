@@ -48,6 +48,17 @@
             <div class="flap right-flap"></div>
             <div class="pocket"></div>
 
+            <!-- Front Cover text visible when closed -->
+            <div class="envelope-front-cover">
+              <div class="front-logo">
+                <i class="fa-solid fa-graduation-cap gold-accent"></i>
+              </div>
+              <h2 class="front-title">Graduate</h2>
+              <p class="front-subtitle">FOREVER GRATEFUL</p>
+              <div class="front-line"></div>
+              <span class="front-invite">TRÂN TRỌNG KÍNH MỜI</span>
+            </div>
+
             <!-- The Mini Invitation Card inside envelope -->
             <div class="letter" id="letter">
               <div class="letter-border"></div>
@@ -80,9 +91,24 @@
         </div>
       </section>
 
-      <!-- SECTION 2: Main Invitation Content (Hidden initially, shown after open) -->
       <section id="invitation-card-section" class="card-section-hidden">
         <div class="card-container">
+          <!-- Decorative Waving Sashes -->
+          <!-- <canvas class="sash sash-left" id="sash-left-canvas"></canvas>
+          <canvas class="sash sash-right" id="sash-right-canvas"></canvas> -->
+          <!-- University Logos -->
+          <div class="card-logos">
+            <img
+              src="image/snhu.png"
+              alt="SNHU Logo"
+              class="card-logo logo-left"
+            />
+            <img
+              src="image/ulislogo.png"
+              alt="ULIS Logo"
+              class="card-logo logo-right"
+            />
+          </div>
           <!-- Floral/Gold Border Top -->
           <div class="card-top-decorator">
             <svg viewBox="0 0 100 20" class="gold-svg">
@@ -185,14 +211,6 @@
 
           <!-- RSVP Section -->
           <div class="rsvp-section">
-            <div class="section-title">
-              <h2>Xác Nhận Tham Dự</h2>
-              <p>
-                Vui lòng phản hồi trước ngày 10/10/2026 để mình chuẩn bị chu đáo
-                nhé!
-              </p>
-            </div>
-
             <form id="rsvp-form" class="rsvp-form">
               <div class="form-group">
                 <label for="guest-name"
