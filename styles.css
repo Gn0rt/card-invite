@@ -106,6 +106,39 @@ body {
   box-shadow: 0 6px 20px rgba(2, 132, 199, 0.2);
 }
 
+.language-btn {
+  position: fixed;
+  top: 20px;
+  right: 78px;
+  z-index: 100;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid var(--color-glass-border);
+  border-radius: 24px;
+  background: var(--color-card-bg);
+  color: var(--color-primary-dark);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  transition: var(--transition-smooth);
+}
+
+.language-btn:hover {
+  color: #8b0000;
+  border-color: rgba(139, 0, 0, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.16);
+}
+
 .music-wave {
   display: flex;
   align-items: flex-end;

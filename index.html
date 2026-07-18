@@ -38,6 +38,11 @@
     </button>
 
     <!-- Main Container -->
+    <button id="language-toggle" class="language-btn" type="button" aria-label="Switch to Vietnamese">
+      <i class="fa-solid fa-language" aria-hidden="true"></i>
+      <span>VI</span>
+    </button>
+
     <main class="app-container">
       <!-- SECTION 1: Interactive Envelope -->
       <section id="envelope-section" class="envelope-wrapper">
@@ -64,12 +69,12 @@
                 <div class="front-logo">
                   <i class="fa-solid fa-graduation-cap gold-accent"></i>
                 </div>
-                <h2 class="front-title">Graduate</h2>
+                <h2 class="front-title" data-i18n="envelopeTitle">Graduate</h2>
                 <!-- <p class="front-subtitle">FOREVER GRATEFUL</p> -->
               </div>
               <div class="front-footer">
                 <div class="front-line"></div>
-                <span class="front-invite">CORDIAL INVITATION </span>
+                <span class="front-invite" data-i18n="cordialInvitation">CORDIAL INVITATION</span>
               </div>
             </div>
 
@@ -80,17 +85,17 @@
                 <div class="cap-icon-wrapper">
                   <i class="fa-solid fa-graduation-cap gold-accent"></i>
                 </div>
-                <h2>INVITATION</h2>
-                <p class="sub-title">Graduation Ceremony</p>
+                <h2 data-i18n="invitation">INVITATION</h2>
+                <p class="sub-title" data-i18n="ceremony">Graduation Ceremony</p>
                 <div class="divider">
                   <span class="dot"></span>
                   <span class="line"></span>
                   <span class="dot"></span>
                 </div>
-                <p class="invitee-text">
+                <p class="invitee-text" data-i18n="miniInvite">
                   Please join me in celebrating my graduation.
                 </p>
-                <button class="open-card-btn" id="trigger-open-btn">
+                <button class="open-card-btn" id="trigger-open-btn" data-i18n="openEnvelope">
                   Open Envelope
                 </button>
               </div>
@@ -100,7 +105,7 @@
           <div class="envelope-shadow"></div>
           <div class="click-instruction">
             <i class="fa-solid fa-hand-pointer"></i>
-            <span>Tap the invitation to begin </span>
+            <span data-i18n="tapToBegin">Tap the invitation to begin</span>
           </div>
         </div>
       </section>
@@ -144,9 +149,9 @@
 
           <!-- Invitation Header -->
           <header class="card-header">
-            <div class="badge">GRADUATION</div>
-            <h1 class="main-heading">Graduation Ceremony</h1>
-            <p class="graduation-year">Class of 2026</p>
+            <div class="badge" data-i18n="graduation">GRADUATION</div>
+            <h1 class="main-heading" data-i18n="ceremony">Graduation Ceremony</h1>
+            <p class="graduation-year" data-i18n="classYear">Class of 2026</p>
             <div class="ornament">
               <i class="fa-solid fa-leaf left-leaf"></i>
               <i class="fa-solid fa-graduation-cap cap-center"></i>
@@ -156,14 +161,14 @@
 
           <!-- Graduate Info -->
           <div class="graduate-info">
-            <p class="invite-label">
+            <p class="invite-label" data-i18n="inviteLabel">
               You are cordially invited to celebrate the graduation of
             </p>
             <h2 class="graduate-name">Nguyễn Minh Huyền</h2>
-            <p class="degree-title">
+            <p class="degree-title" data-i18n="degreeTitle">
               Bachelor of Science Economics and Finance
             </p>
-            <p class="university-name">
+            <p class="university-name" data-i18n="universityName">
               University of Languages and International Studies, Vietnam
               National University, Hanoi
             </p>
@@ -175,9 +180,9 @@
               <div class="icon-circle">
                 <i class="fa-regular fa-calendar-days"></i>
               </div>
-              <h3>Date & Time</h3>
-              <p class="highlight-text">01:00 <small>PM</small> | Thursday</p>
-              <p class="date-detail">July 30, 2026</p>
+              <h3 data-i18n="dateTime">Date & Time</h3>
+              <p class="highlight-text" data-i18n="eventTime">04:30 PM | Thursday</p>
+              <p class="date-detail" data-i18n="eventDate">July 30, 2026</p>
             </div>
 
             <div class="detail-divider"></div>
@@ -186,9 +191,9 @@
               <div class="icon-circle">
                 <i class="fa-solid fa-location-dot"></i>
               </div>
-              <h3>Location</h3>
-              <p class="highlight-text">Nguyen Van Dao Hall</p>
-              <p class="venue-detail">
+              <h3 data-i18n="location">Location</h3>
+              <p class="highlight-text" data-i18n="venueName">Nguyen Van Dao Hall</p>
+              <p class="venue-detail" data-i18n="venueAddress">
                 144 Xuan Thuy Street, Cau Giay District, Hanoi
               </p>
               <a
@@ -197,33 +202,33 @@
                 rel="noopener noreferrer"
                 class="map-link"
               >
-                <i class="fa-solid fa-map-location-dot"></i> View Map
+                <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="viewMap">View Map</span>
               </a>
             </div>
           </div>
 
           <!-- Countdown Timer -->
           <div class="countdown-container">
-            <h3>Event Countdown</h3>
+            <h3 data-i18n="countdown">Event Countdown</h3>
             <div class="timer" id="countdown-timer">
               <div class="timer-segment">
                 <span class="number" id="days">00</span>
-                <span class="label">Days</span>
+                <span class="label" data-i18n="days">Days</span>
               </div>
               <div class="timer-colon">:</div>
               <div class="timer-segment">
                 <span class="number" id="hours">03</span>
-                <span class="label">Hours</span>
+                <span class="label" data-i18n="hours">Hours</span>
               </div>
               <div class="timer-colon">:</div>
               <div class="timer-segment">
                 <span class="number" id="minutes">00</span>
-                <span class="label">Minutes</span>
+                <span class="label" data-i18n="minutes">Minutes</span>
               </div>
               <div class="timer-colon">:</div>
               <div class="timer-segment">
                 <span class="number" id="seconds">00</span>
-                <span class="label">Seconds</span>
+                <span class="label" data-i18n="seconds">Seconds</span>
               </div>
             </div>
           </div>
@@ -280,7 +285,7 @@
             <form id="rsvp-form" class="rsvp-form">
               <div class="form-group">
                 <label for="guest-name"
-                  >Full Name <span class="required">*</span></label
+                  ><span data-i18n="fullName">Full Name</span> <span class="required">*</span></label
                 >
                 <input
                   type="text"
@@ -288,38 +293,40 @@
                   name="name"
                   required
                   placeholder="Enter your full name..."
+                  data-i18n-placeholder="namePlaceholder"
                 />
               </div>
 
               <div class="form-group radio-group">
-                <label>Will you be attending?</label>
+                <label data-i18n="attendanceQuestion">Will you be attending?</label>
                 <div class="radio-options">
                   <label class="radio-label">
                     <input type="radio" name="attendance" value="yes" checked />
                     <span class="custom-radio"></span>
-                    Yes, I will be delighted to attend.
+                    <span data-i18n="attendingYes">Yes, I will be delighted to attend.</span>
                   </label>
                   <label class="radio-label">
                     <input type="radio" name="attendance" value="no" />
                     <span class="custom-radio"></span>
-                    Regretfully, I am unable to attend :( .
+                    <span data-i18n="attendingNo">Regretfully, I am unable to attend :( .</span>
                   </label>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="guest-wish">Message for the Graduate</label>
+                <label for="guest-wish" data-i18n="messageLabel">Message for the Graduate</label>
                 <textarea
                   id="guest-wish"
                   name="wish"
                   rows="3"
                   placeholder="Share your congratulations and best wishes..."
+                  data-i18n-placeholder="messagePlaceholder"
                 ></textarea>
               </div>
 
               <button type="submit" class="submit-btn" id="submit-rsvp">
-                <span class="submit-label">Send RSVP</span>
-                <span class="submit-loading-label" aria-live="polite">Sending your reply</span>
+                <span class="submit-label" data-i18n="sendRsvp">Send RSVP</span>
+                <span class="submit-loading-label" aria-live="polite" data-i18n="sendingReply">Sending your reply</span>
                 <span class="submit-spinner" aria-hidden="true"></span>
                 <i class="fa-solid fa-paper-plane submit-icon" aria-hidden="true"></i>
               </button>
@@ -331,9 +338,9 @@
                 <div class="success-icon">
                   <i class="fa-solid fa-check"></i>
                 </div>
-                <h3>Submission Successful!</h3>
-                <p>Thank you for your RSVP and your lovely wishes.</p>
-                <button id="close-success-btn" class="close-success-btn">
+                <h3 data-i18n="submissionSuccess">Submission Successful!</h3>
+                <p data-i18n="successMessage">Thank you for your RSVP and your lovely wishes.</p>
+                <button id="close-success-btn" class="close-success-btn" data-i18n="close">
                   Close
                 </button>
               </div>
@@ -343,15 +350,15 @@
           <!-- Guestbook / Wish Board -->
           <div class="guestbook-section">
             <div class="section-title">
-              <h2>Messages of Congratulations</h2>
-              <p>Heartfelt messages from family and friends.</p>
+              <h2 data-i18n="guestbookTitle">Messages of Congratulations</h2>
+              <p data-i18n="guestbookSubtitle">Heartfelt messages from family and friends.</p>
             </div>
 
             <div class="wishes-list" id="wishes-list">
               <!-- Loaded dynamically via JS -->
               <div class="wish-item empty-state">
                 <p>
-                  No messages yet. Be the first to leave your congratulations!
+                  <span data-i18n="emptyWishes">No messages yet. Be the first to leave your congratulations!</span>
                 </p>
               </div>
             </div>
@@ -359,7 +366,7 @@
 
           <!-- Footer Decorator -->
           <footer class="card-footer">
-            <p>We look forward to celebrating with you.</p>
+            <p data-i18n="footerWelcome">We look forward to celebrating with you.</p>
             <p class="footer-sign">Nguyen Minh Huyen & Family</p>
             <div class="card-bottom-decorator">
               <svg viewBox="0 0 100 10" class="gold-svg">
@@ -381,7 +388,7 @@
           id="back-to-envelope"
           aria-label="Xem lại bao thư"
         >
-          <i class="fa-solid fa-envelope-open"></i> Open Envelope
+          <i class="fa-solid fa-envelope-open"></i> <span data-i18n="backToEnvelope">Open Envelope</span>
         </button>
       </section>
     </main>

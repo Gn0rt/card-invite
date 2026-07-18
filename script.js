@@ -18,6 +18,74 @@ document.addEventListener("DOMContentLoaded", () => {
   const rsvpSuccessOverlay = document.getElementById("rsvp-success");
   const closeSuccessBtn = document.getElementById("close-success-btn");
   const wishesListContainer = document.getElementById("wishes-list");
+  const languageToggleBtn = document.getElementById("language-toggle");
+
+  const translations = {
+    en: {
+      pageTitle: "Graduation Ceremony Invitation",
+      envelopeTitle: "Graduate", cordialInvitation: "CORDIAL INVITATION", invitation: "INVITATION",
+      ceremony: "Graduation Ceremony", miniInvite: "Please join me in celebrating my graduation.",
+      openEnvelope: "Open Envelope", tapToBegin: "Tap the invitation to begin", graduation: "GRADUATION",
+      classYear: "Class of 2026", inviteLabel: "You are cordially invited to celebrate the graduation of",
+      degreeTitle: "Bachelor of Science Economics and Finance",
+      universityName: "University of Languages and International Studies, Vietnam National University, Hanoi",
+      dateTime: "Date & Time", eventTime: "04:30 PM | Thursday", eventDate: "July 30, 2026",
+      location: "Location", venueName: "Nguyen Van Dao Hall", venueAddress: "144 Xuan Thuy Street, Cau Giay District, Hanoi",
+      viewMap: "View Map", countdown: "Event Countdown", days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
+      fullName: "Full Name", namePlaceholder: "Enter your full name...", attendanceQuestion: "Will you be attending?",
+      attendingYes: "Yes, I will be delighted to attend.", attendingNo: "Regretfully, I am unable to attend :( .",
+      messageLabel: "Message for the Graduate", messagePlaceholder: "Share your congratulations and best wishes...",
+      sendRsvp: "Send RSVP", sendingReply: "Sending your reply", submissionSuccess: "Submission Successful!",
+      successMessage: "Thank you for your RSVP and your lovely wishes.", close: "Close",
+      guestbookTitle: "Messages of Congratulations", guestbookSubtitle: "Heartfelt messages from family and friends.",
+      emptyWishes: "No messages yet. Be the first to leave your congratulations!", footerWelcome: "We look forward to celebrating with you.",
+      backToEnvelope: "Open Envelope", attending: "Attending", declining: "Unable to attend",
+      defaultWish: "Sending you my very best wishes!", eventInProgress: "The graduation ceremony is underway!",
+    },
+    vi: {
+      pageTitle: "Thư Mời Lễ Tốt Nghiệp", envelopeTitle: "Tốt nghiệp", cordialInvitation: "TRÂN TRỌNG KÍNH MỜI",
+      invitation: "THƯ MỜI", ceremony: "Lễ Tốt Nghiệp", miniInvite: "Hãy cùng tôi chúc mừng hành trình tốt nghiệp.",
+      openEnvelope: "Mở Bao Thư", tapToBegin: "Chạm vào thiệp để bắt đầu", graduation: "TỐT NGHIỆP",
+      classYear: "Niên khóa 2026", inviteLabel: "Trân trọng kính mời bạn đến chung vui trong lễ tốt nghiệp của",
+      degreeTitle: "Cử nhân Kinh tế và Tài chính",
+      universityName: "Trường Đại học Ngoại ngữ, Đại học Quốc gia Hà Nội",
+      dateTime: "Thời gian", eventTime: "16:30 | Thứ Năm", eventDate: "Ngày 30 tháng 07 năm 2026",
+      location: "Địa điểm", venueName: "Hội trường Nguyễn Văn Đạo", venueAddress: "144 Xuân Thủy, Cầu Giấy, Hà Nội",
+      viewMap: "Xem bản đồ", countdown: "Đếm ngược đến sự kiện", days: "Ngày", hours: "Giờ", minutes: "Phút", seconds: "Giây",
+      fullName: "Họ và tên", namePlaceholder: "Nhập họ và tên của bạn...", attendanceQuestion: "Bạn sẽ tham dự chứ?",
+      attendingYes: "Mình sẽ đến chung vui!", attendingNo: "Tiếc quá, mình không thể đến :( .",
+      messageLabel: "Lời nhắn gửi đến tân cử nhân", messagePlaceholder: "Gửi lời chúc tốt đẹp nhất của bạn...",
+      sendRsvp: "Gửi xác nhận", sendingReply: "Đang gửi lời hồi đáp", submissionSuccess: "Gửi thành công!",
+      successMessage: "Cảm ơn bạn đã xác nhận và gửi những lời chúc thân thương.", close: "Đóng",
+      guestbookTitle: "Bảng lời chúc", guestbookSubtitle: "Những lời chúc từ gia đình và bạn bè.",
+      emptyWishes: "Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!", footerWelcome: "Rất hân hạnh được đón tiếp bạn.",
+      backToEnvelope: "Xem bao thư", attending: "Sẽ tham dự", declining: "Không thể đến",
+      defaultWish: "Gửi đến bạn những lời chúc tốt đẹp nhất!", eventInProgress: "Lễ tốt nghiệp đang diễn ra!",
+    },
+  };
+  let currentLanguage = localStorage.getItem("invitation-language") || "en";
+
+  function translatePage(language) {
+    const copy = translations[language];
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const value = copy[element.dataset.i18n];
+      if (value) element.textContent = value;
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+      element.placeholder = copy[element.dataset.i18nPlaceholder];
+    });
+    document.documentElement.lang = language;
+    document.title = copy.pageTitle;
+    languageToggleBtn.querySelector("span").textContent = language === "en" ? "VI" : "EN";
+    languageToggleBtn.setAttribute("aria-label", language === "en" ? "Chuyển sang tiếng Việt" : "Switch to English");
+    renderWishes();
+  }
+
+  languageToggleBtn.addEventListener("click", () => {
+    currentLanguage = currentLanguage === "en" ? "vi" : "en";
+    localStorage.setItem("invitation-language", currentLanguage);
+    translatePage(currentLanguage);
+  });
 
   // 2. Interactive Envelope Navigation
   const envelopeStamp = document.getElementById("envelope-stamp");
@@ -359,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Event has passed or is happening
       document.getElementById("countdown-timer").innerHTML = `
                 <div class="timer-segment" style="min-width: 200px;">
-                    <span class="number" style="font-size: 1.5rem; color: var(--color-primary-dark);">Đang diễn ra lễ tốt nghiệp!</span>
+                    <span class="number" style="font-size: 1.5rem; color: var(--color-primary-dark);">${translations[currentLanguage].eventInProgress}</span>
                 </div>
             `;
       clearInterval(countdownInterval);
@@ -570,7 +638,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (wishes.length === 0) {
       wishesListContainer.innerHTML = `
                 <div class="wish-item empty-state">
-                    <p>Chưa có lời chúc nào. Hãy là người đầu tiên chúc mừng nhé!</p>
+                    <p>${translations[currentLanguage].emptyWishes}</p>
                 </div>
             `;
       return;
@@ -582,15 +650,15 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(item);
       const attendanceLabel =
         item.attendance === "yes"
-          ? '<span class="wish-status attending">Sẽ tham dự</span>'
-          : '<span class="wish-status declining">Không thể đến</span>';
+          ? `<span class="wish-status attending">${translations[currentLanguage].attending}</span>`
+          : `<span class="wish-status declining">${translations[currentLanguage].declining}</span>`;
 
       wishItem.innerHTML = `
                 <div class="wish-header">
                     <span class="wish-name">${escapeHTML(item.name)}</span>
                     ${attendanceLabel}
                 </div>
-                <p class="wish-text">${escapeHTML(item.wish || "Gửi lời chúc tốt đẹp nhất đến bạn!")}</p>
+                <p class="wish-text">${escapeHTML(item.wish || translations[currentLanguage].defaultWish)}</p>
             `;
       wishesListContainer.appendChild(wishItem);
     });
@@ -665,5 +733,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initialize wishes list display on load
-  renderWishes();
+  translatePage(currentLanguage);
 });
