@@ -19,24 +19,34 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Interactive Envelope Navigation
   const envelopeStamp = document.getElementById("envelope-stamp");
 
+  function openEnvelope() {
+    envelopeContainer.classList.add("open");
+
+    // Start playing music if not started yet
+    if (!audioContext) {
+      initSynthMusic();
+    }
+    if (isMusicMuted) {
+      toggleMusicState();
+    }
+  }
+
   // Clicking the stamp opens the envelope
   if (envelopeStamp) {
     envelopeStamp.addEventListener("click", (e) => {
       e.stopPropagation();
-      envelopeContainer.classList.add("open");
-      
-      // Start playing music if not started yet
-      if (!audioContext) {
-        initSynthMusic();
-      }
-      if (isMusicMuted) {
-        toggleMusicState();
-      }
+      openEnvelope();
     });
   }
 
-  // General click on container to close it if it is already open
+  // Tapping anywhere on the closed envelope opens it; tapping its outer area
+  // again closes it without interrupting interactions with the letter.
   envelopeContainer.addEventListener("click", (e) => {
+    if (!envelopeContainer.classList.contains("open")) {
+      openEnvelope();
+      return;
+    }
+
     if (envelopeContainer.classList.contains("open")) {
       // Don't close if clicking the inner card buttons/details
       if (

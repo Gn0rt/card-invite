@@ -18,11 +18,14 @@
   --font-heading: "Playfair Display", serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
   --font-accent: "Alex Brush", cursive;
-  --envelope-bg: #cbd5e1;
-  --envelope-flap-bg: #94a3b8;
-  --envelope-left-bg: #788896;
-  --envelope-right-bg: #8ba0b2;
-  --envelope-pocket-bg: #a1b5c9;
+  /* Deep navy stationery palette — used by the envelope only. */
+  --envelope-bg: #102c4a;
+  --envelope-flap-bg: #173e63;
+  --envelope-left-bg: #0d2945;
+  --envelope-right-bg: #123555;
+  --envelope-pocket-bg: #0f3455;
+  --envelope-gold: #d9bd78;
+  --envelope-cream: #f5ecd5;
   --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-premium:
     0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 50px rgba(2, 132, 199, 0.05);
@@ -165,14 +168,36 @@ body {
 }
 
 .envelope {
+  --letter-lift: -130px;
   position: relative;
   width: 340px;
   height: 240px;
   background: var(--envelope-bg);
-  border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  border-radius: 10px;
+  border: 1px solid rgba(221, 193, 126, 0.48);
+  background:
+    radial-gradient(
+      circle at 78% 15%,
+      rgba(95, 151, 190, 0.18),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #163e63 0%, var(--envelope-bg) 52%, #0a223a 100%);
+  box-shadow:
+    0 28px 45px -20px rgba(5, 19, 35, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
   transition: transform 0.5s ease;
   transform-style: preserve-3d;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: 5;
+  border: 1px solid rgba(221, 193, 126, 0.42);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0.82;
 }
 
 /* Envelope Flaps shape with CSS clip-path */
@@ -185,19 +210,24 @@ body {
 }
 
 .top-flap {
-  background: var(--envelope-flap-bg);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), transparent 36%),
+    linear-gradient(135deg, #1d507c, var(--envelope-flap-bg) 58%, #112f4d);
   clip-path: polygon(0 0, 50% 64%, 100% 0);
   transform-origin: top;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   transition:
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0.4s;
+    transform 0.78s cubic-bezier(0.22, 0.8, 0.2, 1),
+    z-index 0s linear 0.38s;
   z-index: 4;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  filter: drop-shadow(0 2px 2px rgba(3, 16, 29, 0.26));
 }
 
 .left-flap {
-  background: var(--envelope-left-bg);
+  background: linear-gradient(135deg, #1b4b73, var(--envelope-left-bg) 80%);
   clip-path: polygon(0 0, 52% 50%, 0 100%);
   z-index: 3;
   border-top-left-radius: 6px;
@@ -205,7 +235,7 @@ body {
 }
 
 .right-flap {
-  background: var(--envelope-right-bg);
+  background: linear-gradient(225deg, #1b4970, var(--envelope-right-bg) 80%);
   clip-path: polygon(100% 0, 48% 50%, 100% 100%);
   z-index: 3;
   border-top-right-radius: 6px;
@@ -218,11 +248,14 @@ body {
   height: 100%;
   bottom: 0;
   left: 0;
-  background: var(--envelope-pocket-bg);
+  background:
+    linear-gradient(125deg, rgba(255, 255, 255, 0.07), transparent 38%),
+    linear-gradient(180deg, #17476e, var(--envelope-pocket-bg) 72%, #0b2945);
   clip-path: polygon(0 40%, 50% 45%, 100% 40%, 100% 100%, 0 100%);
   z-index: 3;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(221, 193, 126, 0.18);
 }
 
 /* Interactive shadow below envelope */
@@ -232,7 +265,7 @@ body {
   left: 5%;
   width: 90%;
   height: 15px;
-  background: rgba(15, 23, 42, 0.15);
+  background: rgba(4, 18, 34, 0.43);
   border-radius: 50%;
   filter: blur(8px);
   z-index: 1;
@@ -253,7 +286,7 @@ body {
 
 .envelope-front-cover .front-header {
   position: absolute;
-  top: 15px;
+  top: 24px;
   left: 0;
   width: 100%;
   display: flex;
@@ -262,32 +295,32 @@ body {
 }
 
 .envelope-front-cover .front-logo {
-  font-size: 1.8rem;
-  margin-bottom: 3px;
+  font-size: 1.45rem;
+  margin-bottom: 5px;
   opacity: 0.9;
-  color: #f5bd04;
+  color: var(--envelope-gold);
 }
 
 .envelope-front-cover .front-title {
   font-family: var(--font-accent);
-  font-size: 2.2rem;
+  font-size: 2.45rem;
   font-weight: 400;
-  color: #f5bd04;
+  color: var(--envelope-cream);
   line-height: 1;
-  text-shadow: 1px 1px 2px rgba(15, 23, 42, 0.15);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.32);
 }
 
 .envelope-front-cover .front-subtitle {
   font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 3.6px;
   margin-top: 4px;
-  color: #f5bd04;
+  color: var(--envelope-gold);
 }
 
 .envelope-front-cover .front-footer {
   position: absolute;
-  bottom: 12px;
+  bottom: 18px;
   left: 0;
   width: 100%;
   display: flex;
@@ -296,9 +329,14 @@ body {
 }
 
 .envelope-front-cover .front-line {
-  width: 40px;
+  width: 58px;
   height: 1px;
-  background-color: var(--color-gold);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--envelope-gold),
+    transparent
+  );
   margin: 5px 0 8px;
   opacity: 0.5;
 }
@@ -306,21 +344,30 @@ body {
 .envelope-front-cover .front-invite {
   font-size: 0.6rem;
   letter-spacing: 2px;
-  color: #f5bd04;
+  color: var(--envelope-cream);
   font-weight: 600;
 }
 
 /* WAX SEAL STAMP STYLES */
 .envelope-stamp {
   position: absolute;
-  top: 50%;
+  top: 67%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
-  width: 80px;
-  height: 80px;
+  width: 74px;
+  height: 74px;
   z-index: 6; /* On top of everything on the envelope */
   cursor: pointer;
-  filter: drop-shadow(0 4px 8px rgba(10, 17, 28, 0.3));
+  border: 2px solid var(--envelope-gold);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    #ecd69b,
+    #ad8241 54%,
+    #745322 100%
+  );
+  padding: 3px;
+  filter: drop-shadow(0 5px 9px rgba(3, 16, 29, 0.48));
   transition:
     transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
     opacity 0.4s ease;
@@ -329,7 +376,9 @@ body {
 .envelope-stamp img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
 }
 
 .envelope-stamp:hover {
@@ -342,14 +391,15 @@ body {
 }
 
 .envelope-container.open .envelope-stamp {
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -62%) scale(0.82) rotate(-12deg);
   opacity: 0;
   pointer-events: none;
+  transition-duration: 0.24s, 0.2s;
 }
 
 /* Hover effects for closed envelope */
 .envelope-container:hover .envelope {
-  transform: translateY(-5px) rotateY(2deg);
+  transform: translateY(-6px) rotateY(2deg);
 }
 
 .envelope-container:hover .envelope-shadow {
@@ -368,10 +418,12 @@ body {
   border-radius: 4px;
   z-index: 2;
   padding: 12px;
+  transform: translateY(12px) rotateX(1deg);
+  transform-origin: center bottom;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition:
-    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0.5s;
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s ease;
   overflow: hidden;
 }
 
@@ -506,7 +558,7 @@ body {
 
 /* OPENED STATE CLASSES */
 .envelope-container.open .top-flap {
-  transform: rotateX(180deg);
+  transform: rotateX(180deg) translateZ(1px);
   z-index: 1;
 }
 
@@ -516,9 +568,28 @@ body {
 }
 
 .envelope-container.open .letter {
-  transform: translateY(-130px);
+  animation: letter-emerge 1.05s 0.16s cubic-bezier(0.22, 0.9, 0.25, 1) both;
   z-index: 5;
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 22px 35px rgba(3, 20, 37, 0.27);
+}
+
+.envelope-container.open .envelope {
+  transform: translateY(4px) scale(0.99);
+}
+
+@keyframes letter-emerge {
+  0% {
+    transform: translateY(12px) rotateX(1deg);
+  }
+  28% {
+    transform: translateY(3px) rotateX(0.5deg);
+  }
+  82% {
+    transform: translateY(calc(var(--letter-lift) - 8px)) rotateX(0deg);
+  }
+  100% {
+    transform: translateY(var(--letter-lift)) rotateX(0deg);
+  }
 }
 
 /* ========================================================
@@ -1334,8 +1405,8 @@ body {
     height: 200px;
   }
 
-  .envelope-container.open .letter {
-    transform: translateY(-100px);
+  .envelope {
+    --letter-lift: -100px;
   }
 
   .letter h2 {
@@ -1435,8 +1506,8 @@ body {
     height: 180px;
   }
 
-  .envelope-container.open .letter {
-    transform: translateY(-80px);
+  .envelope {
+    --letter-lift: -80px;
   }
 
   .letter h2 {
