@@ -1153,6 +1153,8 @@ body {
 }
 
 .submit-btn {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   background: linear-gradient(135deg,
       var(--color-primary) 0%,
@@ -1170,6 +1172,79 @@ body {
   gap: 10px;
   box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2);
   transition: var(--transition-smooth);
+}
+
+.submit-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.32) 50%, transparent 65%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.submit-loading-label,
+.submit-spinner {
+  display: none;
+}
+
+.submit-btn.is-sending {
+  cursor: wait;
+  background: linear-gradient(135deg, #8b0000, #5f0000);
+  box-shadow: 0 6px 18px rgba(139, 0, 0, 0.28);
+}
+
+.submit-btn.is-sending .submit-label {
+  display: none;
+}
+
+.submit-btn.is-sending .submit-loading-label,
+.submit-btn.is-sending .submit-spinner {
+  display: inline-block;
+}
+
+.submit-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.38);
+  border-top-color: #f6d878;
+  border-radius: 50%;
+  animation: rsvp-spin 0.7s linear infinite;
+}
+
+.submit-btn.is-sending .submit-icon {
+  color: #f6d878;
+  animation: rsvp-plane-flight 1.05s ease-in-out infinite;
+}
+
+.submit-btn.is-sending::after {
+  animation: rsvp-button-shine 1.05s ease-in-out infinite;
+}
+
+.submit-btn:disabled {
+  opacity: 1;
+}
+
+@keyframes rsvp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rsvp-plane-flight {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+  50% {
+    transform: translate(5px, -3px) rotate(-8deg);
+  }
+}
+
+@keyframes rsvp-button-shine {
+  to {
+    transform: translateX(130%);
+  }
 }
 
 .submit-btn:hover {
@@ -1579,6 +1654,10 @@ body {
       right: 15px;
     }
 
+    .timeline-section img {
+      height: 430px;
+    }
+
     .envelope-stamp {
       position: absolute;
       top: 59%;
@@ -1618,6 +1697,10 @@ body {
       .open-card-btn {
         padding: 5px 12px;
         font-size: 0.75rem;
+      }
+
+      .timeline-section img {
+        height: 250px;
       }
 
       .card-container {
@@ -1695,5 +1778,175 @@ body {
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
       }
     }
+  }
+}
+
+.timeline-section {
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-section img {
+  height: 590px;
+}
+
+/* ========================================================
+   CEREMONY PROGRAMME TIMELINE
+   The original image timeline styles above are intentionally retained.
+   ======================================================== */
+.graduation-timeline {
+  --timeline-wine: #8b0000;
+  --timeline-wine-dark: #570000;
+  --timeline-gold: #d4af37;
+  display: block;
+  margin: 42px 0 34px;
+  padding: 34px 34px 26px;
+  border: 1px solid rgba(139, 0, 0, 0.14);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(212, 175, 55, 0.12), transparent 27%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 241, 0.72));
+  box-shadow: 0 14px 30px rgba(70, 16, 16, 0.08);
+}
+
+.timeline-heading {
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.timeline-kicker {
+  display: block;
+  color: var(--timeline-wine);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+}
+
+.timeline-heading h2 {
+  margin: 6px 0 9px;
+  color: var(--timeline-wine-dark);
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 5vw, 2.15rem);
+}
+
+.timeline-heading-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--timeline-gold);
+}
+
+.timeline-heading-line span {
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+
+.timeline-heading-line span:last-child {
+  background: linear-gradient(90deg, currentColor, transparent);
+}
+
+.timeline-heading-line i {
+  font-size: 0.78rem;
+}
+
+.timeline-list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  bottom: 11px;
+  left: 113px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(139, 0, 0, 0.28) 5%,
+    rgba(139, 0, 0, 0.28) 95%,
+    transparent
+  );
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  column-gap: 34px;
+  align-items: center;
+  min-height: 58px;
+  padding: 9px 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 109px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--timeline-gold);
+  border-radius: 50%;
+  background: var(--timeline-wine);
+  box-shadow: 0 0 0 4px #fffaf1;
+  transform: translateY(-50%);
+}
+
+.timeline-item time {
+  color: var(--timeline-wine);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.timeline-item p {
+  margin: 0;
+  color: #283548;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.timeline-item:hover::before {
+  background: var(--timeline-gold);
+  box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.17);
+}
+
+@media (max-width: 600px) {
+  .graduation-timeline {
+    margin: 32px 0 26px;
+    padding: 27px 18px 18px;
+    border-radius: 14px;
+  }
+
+  .timeline-list::before {
+    left: 87px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 72px 1fr;
+    column-gap: 27px;
+    min-height: 64px;
+  }
+
+  .timeline-item::before {
+    left: 83px;
+  }
+
+  .timeline-item time {
+    font-size: 0.62rem;
+  }
+
+  .timeline-item p {
+    font-size: 0.76rem;
   }
 }

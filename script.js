@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const musicToggleBtn = document.getElementById("music-toggle");
 
   const rsvpForm = document.getElementById("rsvp-form");
+  const submitRsvpBtn = document.getElementById("submit-rsvp");
   const rsvpSuccessOverlay = document.getElementById("rsvp-success");
   const closeSuccessBtn = document.getElementById("close-success-btn");
   const wishesListContainer = document.getElementById("wishes-list");
@@ -627,8 +628,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!name) return;
 
-    // Save wish to local storage
+    // Keep the sending state visible long enough for a clear, delightful response.
+    submitRsvpBtn.disabled = true;
+    submitRsvpBtn.classList.add("is-sending");
+    submitRsvpBtn.setAttribute("aria-busy", "true");
+    const sendingStartedAt = Date.now();
+
+    // Save the RSVP.
     await saveWish(name, attendance, wish);
+
+    const minimumSendingTime = 1150;
+    const remainingTime = minimumSendingTime - (Date.now() - sendingStartedAt);
+    if (remainingTime > 0) {
+      await new Promise((resolve) => setTimeout(resolve, remainingTime));
+    }
 
     // Re-render guestbook
     // renderWishes();
@@ -636,6 +649,9 @@ document.addEventListener("DOMContentLoaded", () => {
       await renderWishes();
     }, 1000);
     // Show Success Overlay modal
+    submitRsvpBtn.classList.remove("is-sending");
+    submitRsvpBtn.disabled = false;
+    submitRsvpBtn.removeAttribute("aria-busy");
     rsvpSuccessOverlay.classList.add("show");
 
     // Clear Form fields
