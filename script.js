@@ -1,3 +1,5 @@
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwnV5bf8I-6UcP5cspUc7_XfBioARecdhYv4I9f0mq0mUX2x1Q-snPE3rTES_vdAlo/exec";
 // --- Graduation Invitation JS Logic ---
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -519,24 +521,49 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // Load wishes from localStorage or fall back to default
-  function getWishes() {
-    const stored = localStorage.getItem("graduation_wishes");
-    if (stored) {
-      return JSON.parse(stored);
+  // function getWishes() {
+  //   const stored = localStorage.getItem("graduation_wishes");
+  //   if (stored) {
+  //     return JSON.parse(stored);
+  //   }
+  //   // Save default wishes first time
+  //   localStorage.setItem("graduation_wishes", JSON.stringify(defaultWishes));
+  //   return defaultWishes;
+  // }
+  async function getWishes() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      return data; // Dữ liệu là mảng các lời chúc từ Apps Script
+      console.log(data);
+    } catch (error) {
+      console.error("Lỗi khi lấy lời chúc:", error);
+      return [];
     }
-    // Save default wishes first time
-    localStorage.setItem("graduation_wishes", JSON.stringify(defaultWishes));
-    return defaultWishes;
   }
 
-  function saveWish(name, attendance, wish) {
-    const wishes = getWishes();
-    wishes.unshift({ name, attendance, wish }); // Add new wishes to top
-    localStorage.setItem("graduation_wishes", JSON.stringify(wishes));
+  // function saveWish(name, attendance, wish) {
+  //   const wishes = getWishes();
+  //   wishes.unshift({ name, attendance, wish }); // Add new wishes to top
+  //   localStorage.setItem("graduation_wishes", JSON.stringify(wishes));
+  // }
+  async function saveWish(name, attendance, wish) {
+    try {
+      await fetch(API_URL, {
+        method: "POST",
+        mode: "no-cors", // Apps Script yêu cầu no-cors để tránh lỗi chuyển hướng
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, attendance, wish }),
+      });
+    } catch (error) {
+      console.error("Lỗi khi gửi lời chúc:", error);
+    }
   }
-
-  function renderWishes() {
-    const wishes = getWishes();
+  async function renderWishes() {
+    const wishes = await getWishes();
+    console.log(wishes);
     wishesListContainer.innerHTML = "";
 
     if (wishes.length === 0) {
@@ -551,7 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
     wishes.forEach((item) => {
       const wishItem = document.createElement("div");
       wishItem.className = "wish-item";
-
+      console.log(item);
       const attendanceLabel =
         item.attendance === "yes"
           ? '<span class="wish-status attending">Sẽ tham dự</span>'
@@ -571,6 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Helper to escape HTML tags to prevent XSS
   function escapeHTML(str) {
     if (!str) return "";
+    console.log(str);
     return str
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
@@ -580,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // RSVP Form Submit Handler
-  rsvpForm.addEventListener("submit", (e) => {
+  rsvpForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const nameInput = document.getElementById("guest-name");
@@ -589,6 +617,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     const wishInput = document.getElementById("guest-wish");
 
+    // const name = nameInput.value.trim();
+    // const attendance = attendanceInput ? attendanceInput.value : "yes";
+    // const wish = wishInput.value.trim();
+
     const name = nameInput.value.trim();
     const attendance = attendanceInput ? attendanceInput.value : "yes";
     const wish = wishInput.value.trim();
@@ -596,11 +628,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!name) return;
 
     // Save wish to local storage
-    saveWish(name, attendance, wish);
+    await saveWish(name, attendance, wish);
 
     // Re-render guestbook
-    renderWishes();
-
+    // renderWishes();
+    setTimeout(async () => {
+      await renderWishes();
+    }, 1000);
     // Show Success Overlay modal
     rsvpSuccessOverlay.classList.add("show");
 
