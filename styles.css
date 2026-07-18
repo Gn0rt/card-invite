@@ -18,19 +18,19 @@
   --font-heading: "Playfair Display", serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
   --font-accent: "Alex Brush", cursive;
-  /* Deep navy stationery palette — used by the envelope only. */
-  --envelope-bg: #102c4a;
-  --envelope-flap-bg: #173e63;
-  --envelope-left-bg: #0d2945;
-  --envelope-right-bg: #123555;
-  --envelope-pocket-bg: #0f3455;
-  --envelope-gold: #d9bd78;
-  --envelope-cream: #f5ecd5;
+  /* Burgundy stationery palette — used by the envelope only. */
+  --envelope-bg: #8b0000;
+  --envelope-flap-bg: #740000;
+  --envelope-left-bg: #590000;
+  --envelope-right-bg: #680000;
+  --envelope-pocket-bg: #650000;
+  --envelope-gold: #d6af57;
+  --envelope-cream: #fff5dc;
   --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-premium:
     0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 50px rgba(2, 132, 199, 0.05);
 
-  --envelope-bg-color: #cb918c; /* Dusty Rose / Hồng Đất */
+  --envelope-bg-color: #8b0000;
   --envelope-accent-color: #d4af37; /* Gold / Vàng Kim */
   --envelope-text-color: #f5f5dc; /* Beige / Màu be nhạt */
 }
@@ -178,10 +178,10 @@ body {
   background:
     radial-gradient(
       circle at 78% 15%,
-      rgba(95, 151, 190, 0.18),
+      rgba(255, 188, 144, 0.15),
       transparent 35%
     ),
-    linear-gradient(135deg, #163e63 0%, var(--envelope-bg) 52%, #0a223a 100%);
+    linear-gradient(135deg, #a31313 0%, var(--envelope-bg) 52%, #460000 100%);
   box-shadow:
     0 28px 45px -20px rgba(5, 19, 35, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.13);
@@ -212,7 +212,7 @@ body {
 .top-flap {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.09), transparent 36%),
-    linear-gradient(135deg, #1d507c, var(--envelope-flap-bg) 58%, #112f4d);
+    linear-gradient(135deg, #a71c1c, var(--envelope-flap-bg) 58%, #4d0000);
   clip-path: polygon(0 0, 50% 64%, 100% 0);
   transform-origin: top;
   transform-style: preserve-3d;
@@ -227,7 +227,7 @@ body {
 }
 
 .left-flap {
-  background: linear-gradient(135deg, #1b4b73, var(--envelope-left-bg) 80%);
+  background: linear-gradient(135deg, #8f1010, var(--envelope-left-bg) 80%);
   clip-path: polygon(0 0, 52% 50%, 0 100%);
   z-index: 3;
   border-top-left-radius: 6px;
@@ -235,7 +235,7 @@ body {
 }
 
 .right-flap {
-  background: linear-gradient(225deg, #1b4970, var(--envelope-right-bg) 80%);
+  background: linear-gradient(225deg, #941111, var(--envelope-right-bg) 80%);
   clip-path: polygon(100% 0, 48% 50%, 100% 100%);
   z-index: 3;
   border-top-right-radius: 6px;
@@ -250,7 +250,7 @@ body {
   left: 0;
   background:
     linear-gradient(125deg, rgba(255, 255, 255, 0.07), transparent 38%),
-    linear-gradient(180deg, #17476e, var(--envelope-pocket-bg) 72%, #0b2945);
+    linear-gradient(180deg, #8f1010, var(--envelope-pocket-bg) 72%, #480000);
   clip-path: polygon(0 40%, 50% 45%, 100% 40%, 100% 100%, 0 100%);
   z-index: 3;
   border-bottom-left-radius: 10px;
@@ -351,7 +351,7 @@ body {
 /* WAX SEAL STAMP STYLES */
 .envelope-stamp {
   position: absolute;
-  top: 67%;
+  top: 59%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   width: 74px;
