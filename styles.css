@@ -1232,10 +1232,12 @@ body {
 }
 
 @keyframes rsvp-plane-flight {
+
   0%,
   100% {
     transform: translate(0, 0) rotate(-8deg);
   }
+
   50% {
     transform: translate(5px, -3px) rotate(-8deg);
   }
@@ -1655,7 +1657,7 @@ body {
     }
 
     .timeline-section img {
-      height: 430px;
+      height: 430px !important;
     }
 
     .envelope-stamp {
@@ -1700,7 +1702,7 @@ body {
       }
 
       .timeline-section img {
-        height: 250px;
+        height: 250px !important;
       }
 
       .card-container {
@@ -1866,13 +1868,11 @@ body {
   bottom: 11px;
   left: 113px;
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(139, 0, 0, 0.28) 5%,
-    rgba(139, 0, 0, 0.28) 95%,
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(139, 0, 0, 0.28) 5%,
+      rgba(139, 0, 0, 0.28) 95%,
+      transparent);
 }
 
 .timeline-item {
