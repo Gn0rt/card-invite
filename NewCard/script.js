@@ -15,12 +15,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const wishesListContainer = document.getElementById("wishes-list");
 
     // 2. Interactive Envelope Navigation
+    const envelopeStamp = document.getElementById("envelope-stamp");
+
+    // Clicking the stamp opens the envelope
+    if (envelopeStamp) {
+        envelopeStamp.addEventListener("click", (e) => {
+            e.stopPropagation();
+            envelopeContainer.classList.add("open");
+            
+            // Start playing music if not started yet
+            if (!audioContext) {
+                initSynthMusic();
+            }
+            if (isMusicMuted) {
+                toggleMusicState();
+            }
+        });
+    }
+
+    // General click on container to close it if it is already open
     envelopeContainer.addEventListener("click", (e) => {
-        // Prevent trigger button from double-firing envelope events
-        if (e.target.id === "trigger-open-btn" || e.target.classList.contains("open-card-btn")) {
-            return;
+        if (envelopeContainer.classList.contains("open")) {
+            // Don't close if clicking the inner card buttons/details
+            if (
+                e.target.id === "trigger-open-btn" ||
+                e.target.classList.contains("open-card-btn") ||
+                e.target.closest(".letter")
+            ) {
+                return;
+            }
+            envelopeContainer.classList.remove("open");
         }
-        envelopeContainer.classList.toggle("open");
     });
 
     // Clicking "Mở Thiệp" button slides card out and reveals full screen

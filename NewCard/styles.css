@@ -168,7 +168,7 @@ body {
 
 .top-flap {
     background: var(--color-navy-light);
-    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    clip-path: polygon(0 0, 50% 64%, 100% 0);
     transform-origin: top;
     transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.5s;
     z-index: 4;
@@ -206,7 +206,7 @@ body {
 
 .left-flap {
     background: #0f1827;
-    clip-path: polygon(0 0, 53% 50%, 0 100%);
+    clip-path: polygon(0 0, 52% 50%, 0 100%);
     z-index: 3;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -214,7 +214,7 @@ body {
 
 .right-flap {
     background: #131f31;
-    clip-path: polygon(100% 0, 47% 50%, 100% 100%);
+    clip-path: polygon(100% 0, 48% 50%, 100% 100%);
     z-index: 3;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -227,7 +227,7 @@ body {
     bottom: 0;
     left: 0;
     background: #172439;
-    clip-path: polygon(0 50%, 50% 100%, 100% 50%, 100% 100%, 0 100%);
+    clip-path: polygon(0 40%, 50% 45%, 100% 40%, 100% 100%, 0 100%);
     z-index: 3;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -241,21 +241,25 @@ body {
     width: 100%;
     height: 100%;
     z-index: 4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: var(--color-gold);
-    backface-visibility: hidden;
     pointer-events: none;
     transition: opacity 0.4s ease;
 }
 
+.envelope-front-cover .front-header {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .front-logo {
     font-size: 1.8rem;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     opacity: 0.9;
+    color: var(--color-gold);
 }
 
 .front-title {
@@ -270,14 +274,25 @@ body {
     font-size: 0.65rem;
     font-weight: 600;
     letter-spacing: 3px;
-    margin-top: 5px;
+    margin-top: 4px;
+    color: var(--color-gold);
+}
+
+.envelope-front-cover .front-footer {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .front-line {
     width: 40px;
     height: 1px;
     background-color: var(--color-gold);
-    margin: 15px 0 8px;
+    margin: 5px 0 8px;
     opacity: 0.6;
 }
 
@@ -285,6 +300,41 @@ body {
     font-size: 0.6rem;
     letter-spacing: 2px;
     color: #ffffff;
+}
+
+/* WAX SEAL STAMP STYLES */
+.envelope-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 80px;
+    height: 80px;
+    z-index: 6; /* Seal on top of flaps */
+    cursor: pointer;
+    filter: drop-shadow(0 4px 8px rgba(10, 17, 28, 0.4));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.envelope-stamp img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.envelope-stamp:hover {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 6px 12px rgba(10, 17, 28, 0.5));
+}
+
+.envelope-stamp:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.envelope-container.open .envelope-stamp {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Envelope Shadow */
